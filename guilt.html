@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hey Akshada — Just One More Thing</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* 🌙 Background Theme */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* 🌟 Floating stars effect */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation: stars 60s linear infinite;
+      opacity: 0.2;
+      z-index: 0;
+    }
+
+    @keyframes stars {
+      from { transform: translateY(0); }
+      to { transform: translateY(-200px); }
+    }
+
+    .quote-card {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(255,255,255,0.05);
+      padding: 40px 30px;
+      max-width: 640px;
+      text-align: center;
+      animation: fadeIn 1.2s ease forwards;
+      transform: translateY(20px);
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .emoji {
+      font-size: 48px;
+      margin-bottom: 16px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      color: #f1f1f1;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: #d6d6d6;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .actions {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 28px;
+      border-radius: 40px;
+      border: none;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(255,255,255,0.08);
+    }
+
+    .btn:hover { transform: translateY(-3px); }
+
+    .btn.primary {
+      background: linear-gradient(45deg, #89f7fe, #66a6ff);
+      color: #000;
+      box-shadow: 0 0 25px rgba(102,166,255,0.4);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+    }
+
+    .btn.secondary:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.85rem;
+      color: #aaa;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="quote-card">
+    <div class="emoji">🌙</div>
+    <h1>Maybe I messed up, but I still care.</h1>
+    <p>“I know I wasn’t at my best — maybe more like ‘Wi-Fi signal on 1 bar.’
+But I’m learning. And I really don’t want to lose the connection completely.”</p>
+    <p style="margin-top:12px;">If this is the last message you read from me, I hope it still makes you smile a little.</p>
+
+    <div class="actions">
+      <button class="btn primary" onclick="window.location.href='index.html'">Back Home</button>
+      <button class="btn secondary" onclick="window.location.href='hope.html'">Read One Last Thing</button>
+    </div>
+  </div>
+
+  <footer>Made with honesty — by Tushar 🌿</footer>
+</body>
+</html>

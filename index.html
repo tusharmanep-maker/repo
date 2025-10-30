@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hey Akshada — A Small Sorry</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* 🌙 Modern aesthetic styles */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    /* 🌟 Stars */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation: twinkle 60s linear infinite;
+      opacity: 0.2;
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      from { transform: translateY(0); }
+      to { transform: translateY(-200px); }
+    }
+
+    main.app {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      max-width: 800px;
+    }
+
+    header.brand .logo {
+      font-size: 2.5rem;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin: 0.5rem 0;
+      color: #f1f1f1;
+    }
+
+    .subtitle {
+      color: #aaa;
+      font-weight: 300;
+      font-size: 1rem;
+    }
+
+    .card.centered {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-top: 2rem;
+      box-shadow: 0 8px 20px rgba(255,255,255,0.05);
+      transition: all 0.4s ease;
+    }
+
+    .card.centered:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255,255,255,0.1);
+    }
+
+    .lead {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #e0e0e0;
+      margin-bottom: 2rem;
+    }
+
+    /* ✨ Buttons */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary, .btn-secondary {
+      border: none;
+      border-radius: 50px;
+      padding: 0.9rem 1.8rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 15px rgba(255,255,255,0.1);
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #89f7fe, #66a6ff);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 25px rgba(102,166,255,0.6);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-3px);
+    }
+
+    footer.footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app">
+    <header class="brand">
+      <div class="logo">🌙</div>
+      <div class="title-block">
+        <h1 class="title">Hey Akshada — a small sorry</h1>
+        <p class="subtitle">Just a little page made to say I’m sorry, with a smile.</p>
+      </div>
+    </header>
+
+    <section id="intro" class="card centered">
+      <p class="lead">“Hey, I made this just to say sorry in a real way — no long talks, no expectations.
+Just a simple note to remind you that I still value our friendship.”</p>
+      <div class="button-group">
+        <button class="btn-primary" onclick="window.location.href='memory.html'">Alright, go on 😊</button>
+        <button class="btn-secondary" onclick="window.location.href='guilt.html'">Hmm… maybe later</button>
+      </div>
+    </section>
+
+    <footer class="footer muted">Made with care — by Tushar 🌿</footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Constellations of Memories 🌌</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle at 20% 30%, #0a192f, #000);
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .message-box {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 40px 50px;
+      max-width: 620px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.08);
+      animation: fadeIn 2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: 1.9em;
+      color: #fff;
+      text-shadow: 0 0 8px rgba(255,255,255,0.2);
+    }
+
+    p {
+      font-size: 1.05em;
+      color: #cfd8dc;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .tooltip {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 10px 18px;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.9em;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      transform: translate(-50%, -120%);
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 0 0 15px rgba(255,255,255,0.15);
+    }
+
+    .continue {
+      background: linear-gradient(135deg, #6ee7ff, #4285f4);
+      color: #000;
+      font-weight: 500;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    }
+
+    .continue:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(66, 133, 244, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+  <div class="tooltip" id="tooltip"></div>
+
+ 
+<div class="message-box">
+
+    <h1>If Stars Could Speak 💫</h1>
+
+
+    <p>
+      Every star holds a piece of what we once shared — quiet, distant, yet still shining.  
+      Some glow brighter because they carry what words couldn’t say.<br><br>
+      (Hover or touch the stars….)
+    </p>
+    <button class="continue" onclick="window.location.href='memories2.html'">Continue 😊</button>
+
+
+  </div>
+
+  <script>
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    const tooltip = document.getElementById('tooltip');
+
+    let stars = [];
+    const messages = [
+      "I never meant to hurt you... it just happened before I realized 💔",
+      "If I could turn back time, I’d choose my words more softly 🌙",
+      "You didn’t deserve my mistake — I see that now 🌸",
+      "I wish I had handled things with more care, like you always did ✨",
+      "It was never about ego — I was just scared to lose you 💫",
+      "Somewhere in all the silence, I hope you still know I cared 💭",
+      "I’m not asking for another chance, just for your heart to heal kindly 💌",
+      "I still think about how kind you were when I didn’t deserve it 🌷",
+      "I wish I could go back and just listen better 🤍",
+      "It’s strange… how one mistake can echo so deeply 💧",
+      "You were right — and I see that now 🌙",
+      "If regret could speak, it would whisper your name softly 💫",
+      "I never wanted to lose your smile over something so small 🌼",
+      "Even now, I hope you find peace — even if I’m not part of it 🌌",
+      "You taught me what care really means, even in goodbye 🌻",
+      "Maybe I was clumsy with emotions, but never careless with you 💭",
+    ];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 45; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2,
+        speed: Math.random() * 0.4 + 0.2,
+        msg: messages[Math.floor(Math.random() * messages.length)]
+      });
+    }
+
+    canvas.addEventListener('mousemove', (e) => {
+      let hovered = false;
+      stars.forEach(s => {
+        const dx = e.clientX - s.x;
+        const dy = e.clientY - s.y;
+        if (Math.sqrt(dx*dx + dy*dy) < 10) {
+          tooltip.style.opacity = 1;
+          tooltip.textContent = s.msg;
+          tooltip.style.left = e.clientX + 'px';
+          tooltip.style.top = e.clientY + 'px';
+          hovered = true;
+        }
+      });
+      if (!hovered) tooltip.style.opacity = 0;
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.fill();
+        s.y += s.speed;
+        if (s.y > canvas.height) s.y = 0;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>

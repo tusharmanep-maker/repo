@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Light Returns 🌅</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(180deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
+      background-size: 400% 400%;
+      animation: sunrise 15s ease-in-out infinite alternate;
+      color: #fff;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    @keyframes sunrise {
+      0% {
+        background-position: top left;
+      }
+      100% {
+        background-position: bottom right;
+      }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(12px);
+      max-width: 600px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    p {
+      font-size: 1.1em;
+      color: #f8f9fa;
+      margin-bottom: 35px;
+      line-height: 1.8;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #ffb347, #ffcc33);
+      color: #333;
+      border: none;
+      padding: 12px 28px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 200, 100, 0.4);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(255, 200, 100, 0.6);
+    }
+
+    .sun {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle, #fff7b2, #ffd166, #fcbf49);
+      border-radius: 50%;
+      box-shadow: 0 0 80px 30px rgba(255, 235, 170, 0.5);
+      animation: glow 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { transform: translateX(-50%) scale(0.95); opacity: 0.8; }
+      to { transform: translateX(-50%) scale(1.05); opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6em; }
+      p { font-size: 1em; }
+      .sun { width: 100px; height: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sun"></div>
+
+  <div class="container">
+    <h1>“Forgive My Silence 🌙”</h1>
+    <p>
+      “Even if we don’t talk again, I’ll still smile at the memories".
+<br><br>
+     Even if you forget me, at least remember how awesome I was at saying sorry. 😅
+    </p>
+
+  <div class="actions" id="responseArea">
+  <button class="btn primary" onclick="sendResponse('forward')">Let’s move forward 🪷</button><br><br>
+  <button class="btn secondary" onclick="sendResponse('notyet')">Not yet!!</button>
+</div>
+
+<script>
+  function sendResponse(choice) {
+    fetch("https://formspree.io/f/myzbpjad", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        choice: choice,
+        timestamp: new Date().toLocaleString()
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        alert("Response saved successfully 💌");
+      } else {
+        alert("Something went wrong, but your choice is noted.");
+      }
+    })
+    .catch(() => alert("Network error, please try again later."));
+  }
+</script>
+
+
+
+  </div>
+
+</body>
+</html>
