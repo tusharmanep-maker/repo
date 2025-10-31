@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Peace Garden — A Quiet Goodbye</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1:#030713;
+    --bg2:#0a1b26;
+    --glow:#dfe9ff;
+    --petal:#f5b3c4;
+    --text:#d7e3ff;
+  }
+  html,body {
+    margin:0; padding:0; height:100%; overflow:hidden;
+    background: radial-gradient(900px 600px at 50% 10%, var(--bg2) 0%, var(--bg1) 80%);
+    color:var(--text); font-family:Inter, system-ui;
+  }
+  .garden {
+    position:relative; width:100%; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; overflow:hidden;
+  }
+  h1 {
+    font-family:"Playfair Display",serif;
+    font-size:clamp(2rem,5vw,3rem);
+    color:var(--glow);
+    text-shadow:0 0 20px rgba(255,255,255,0.3);
+    margin-bottom:0.4em;
+  }
+  p {
+    font-size:clamp(1rem,2.6vw,1.2rem);
+    max-width:600px; margin:auto;
+    color:rgba(220,230,255,0.9);
+    line-height:1.6;
+  }
+  canvas, .petal {
+    position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;
+  }
+  .petal {
+    width:14px; height:14px;
+    background:radial-gradient(circle at 40% 30%, var(--petal) 0%, #ffcadc 40%, rgba(255,255,255,0) 70%);
+    border-radius:50% 50% 60% 40%/50% 40% 60% 50%;
+    animation:fall linear infinite;
+    opacity:0.7;
+  }
+  @keyframes fall {
+    0% {transform:translateY(-10%) rotate(0deg);}
+    100% {transform:translateY(110vh) rotate(360deg);}
+  }
+  .button {
+    margin-top:2.5em;
+    padding:0.8em 2em;
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:2em;
+    background:rgba(255,255,255,0.05);
+    color:var(--text);
+    font-size:1rem;
+    backdrop-filter:blur(6px);
+    transition:all 0.3s ease;
+  }
+  .button:hover {
+    background:rgba(255,255,255,0.12);
+    transform:translateY(-2px);
+  }
+</style>
+</head>
+<body>
+  <div class="garden">
+    <canvas id="fireflies"></canvas>
+    <h1>Peace Under Moonlight</h1>
+    <p>Some endings don’t need words.<br>
+       Just calm skies, soft petals, and the promise of peace.</p>
+    <button class="button" onclick="location.href='index.html'">Return to Night</button>
+  </div>
+
+<script>
+/* Fireflies + falling petals */
+const canvas=document.getElementById('fireflies');
+const ctx=canvas.getContext('2d');
+let w,h,fireflies=[];
+
+function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;}
+window.addEventListener('resize',resize);resize();
+
+for(let i=0;i<40;i++){
+  fireflies.push({
+    x:Math.random()*w,
+    y:Math.random()*h,
+    r:Math.random()*2+1,
+    dx:(Math.random()-0.5)*0.6,
+    dy:(Math.random()-0.5)*0.6,
+    g:Math.random()*0.5+0.5
+  });
+}
+function animate(){
+  ctx.clearRect(0,0,w,h);
+  fireflies.forEach(f=>{
+    f.x+=f.dx; f.y+=f.dy;
+    if(f.x<0||f.x>w) f.dx*=-1;
+    if(f.y<0||f.y>h) f.dy*=-1;
+    const g=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,f.r*8);
+    g.addColorStop(0,`rgba(255,255,200,${0.8*f.g})`);
+    g.addColorStop(1,'rgba(255,255,200,0)');
+    ctx.fillStyle=g;
+    ctx.beginPath();ctx.arc(f.x,f.y,f.r*8,0,Math.PI*2);ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+// petals
+const garden=document.querySelector('.garden');
+for(let i=0;i<18;i++){
+  const petal=document.createElement('div');
+  petal.className='petal';
+  const duration=10+Math.random()*10;
+  const delay=Math.random()*-20;
+  petal.style.left=Math.random()*100+'%';
+  petal.style.animationDuration=`${duration}s`;
+  petal.style.animationDelay=`${delay}s`;
+  petal.style.transform=`rotate(${Math.random()*360}deg)`;
+  garden.appendChild(petal);
+}
+</script>
+</body>
+</html>
