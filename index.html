@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    /* 🌙 Modern aesthetic styles */
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -24,8 +23,6 @@
       align-items: center;
       position: relative;
     }
-
-    /* 🌟 Stars */
     body::before {
       content: '';
       position: absolute;
@@ -38,12 +35,10 @@
       opacity: 0.2;
       z-index: 0;
     }
-
     @keyframes twinkle {
       from { transform: translateY(0); }
       to { transform: translateY(-200px); }
     }
-
     main.app {
       position: relative;
       z-index: 2;
@@ -51,30 +46,25 @@
       padding: 2rem;
       max-width: 800px;
     }
-
     header.brand .logo {
       font-size: 2.5rem;
       animation: float 4s ease-in-out infinite;
     }
-
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-
     .title {
       font-size: 2rem;
       font-weight: 600;
       margin: 0.5rem 0;
       color: #f1f1f1;
     }
-
     .subtitle {
       color: #aaa;
       font-weight: 300;
       font-size: 1rem;
     }
-
     .card.centered {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(8px);
@@ -84,27 +74,22 @@
       box-shadow: 0 8px 20px rgba(255,255,255,0.05);
       transition: all 0.4s ease;
     }
-
     .card.centered:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(255,255,255,0.1);
     }
-
     .lead {
       font-size: 1.1rem;
       line-height: 1.6;
       color: #e0e0e0;
       margin-bottom: 2rem;
     }
-
-    /* ✨ Buttons */
     .button-group {
       display: flex;
       justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
     }
-
     .btn-primary, .btn-secondary {
       border: none;
       border-radius: 50px;
@@ -115,28 +100,23 @@
       transition: all 0.4s ease;
       box-shadow: 0 0 15px rgba(255,255,255,0.1);
     }
-
     .btn-primary {
       background: linear-gradient(45deg, #89f7fe, #66a6ff);
       color: #000;
     }
-
     .btn-primary:hover {
       transform: translateY(-3px);
       box-shadow: 0 0 25px rgba(102,166,255,0.6);
     }
-
     .btn-secondary {
       background: transparent;
       color: #fff;
       border: 1px solid rgba(255,255,255,0.4);
     }
-
     .btn-secondary:hover {
       background: rgba(255,255,255,0.1);
       transform: translateY(-3px);
     }
-
     footer.footer {
       margin-top: 3rem;
       font-size: 0.9rem;
@@ -165,5 +145,45 @@
 
     <footer class="footer muted">Made with care — by Tushar 🌿</footer>
   </main>
+
+  <!-- 🔥 Firebase Visitor Tracker (Hidden) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+    import { getDatabase, ref, get, set, push } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA86iILEUd0mCaoVEa-7-1a4KhnwPhEUA4",
+      authDomain: "studio-6074404375-8dd73.firebaseapp.com",
+      databaseURL: "https://studio-6074404375-8dd73-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "studio-6074404375-8dd73",
+      storageBucket: "studio-6074404375-8dd73.firebasestorage.app",
+      messagingSenderId: "1092789043749",
+      appId: "1:1092789043749:web:fb621bab47a2d4380235cc"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const visitCountRef = ref(db, "visits/count");
+    const visitDetailsRef = ref(db, "visits/details");
+
+    // Avoid double count per session
+    if (!sessionStorage.getItem("visited_index")) {
+      get(visitCountRef).then(snapshot => {
+        const count = snapshot.exists() ? snapshot.val() : 0;
+        set(visitCountRef, count + 1);
+      });
+
+      // Add visitor details
+      const visitData = {
+        page: "index.html",
+        timestamp: new Date().toLocaleString(),
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+      };
+      push(visitDetailsRef, visitData);
+
+      sessionStorage.setItem("visited_index", "true");
+    }
+  </script>
 </body>
 </html>
