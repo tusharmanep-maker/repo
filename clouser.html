@@ -24,8 +24,12 @@
     }
 
     @keyframes sunrise {
-      0% { background-position: top left; }
-      100% { background-position: bottom right; }
+      0% {
+        background-position: top left;
+      }
+      100% {
+        background-position: bottom right;
+      }
     }
 
     .container {
@@ -97,11 +101,6 @@
       p { font-size: 1em; }
       .sun { width: 100px; height: 100px; }
     }
-
-    /* Hide the visitor counter completely */
-    #visitCount {
-      display: none;
-    }
   </style>
 </head>
 <body>
@@ -112,70 +111,41 @@
     <h1>“Forgive My Silence 🌙”</h1>
     <p>
       “Even if we don’t talk again, I’ll still smile at the memories".
-      <br><br>
-      Even if you forget me, at least remember how awesome I was at saying sorry. 😅
+<br><br>
+     Even if you forget me, at least remember how awesome I was at saying sorry. 😅
     </p>
 
-    <div class="actions" id="responseArea">
-      <button class="btn primary" onclick="sendResponse('Lets move forward')">Let's Move Forward🌼</button><br><br>
-      <button class="btn secondary" onclick="sendResponse('notyet!!')">Not yet!!</button>
-    </div>
+  <div class="actions" id="responseArea">
+  
+<button class="btn primary" onclick="sendResponse('Lets move forward')">Let's Move Forward🌼</button><br><br>
 
-    <!-- Hidden counter -->
-    <div id="visitCount"></div>
+
+  <button class="btn secondary" onclick="sendResponse('notyet!!')">Not yet!!</button>
+</div>
+<script>
+  function sendResponse(choice) {
+    fetch("https://formspree.io/f/myzbpjad", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        choice: choice,
+        timestamp: new Date().toLocaleString()
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        alert("Response saved successfully 💌");
+      } else {
+        alert("Something went wrong, but your choice is noted.");
+      }
+    })
+    .catch(() => alert("Network error, please try again later."));
+  }
+</script>
+
+
+
   </div>
-
-  <!-- 💌 Form Response -->
-  <script>
-    function sendResponse(choice) {
-      fetch("https://formspree.io/f/myzbpjad", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          choice: choice,
-          timestamp: new Date().toLocaleString()
-        })
-      })
-      .then(response => {
-        if (response.ok) {
-          alert("Response saved successfully 💌");
-        } else {
-          alert("Something went wrong, but your choice is noted.");
-        }
-      })
-      .catch(() => alert("Network error, please try again later."));
-    }
-  </script>
-
-  <!-- 🔥 Firebase Visitor Counter -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-    import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-database.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyA86iILEUd0mCaoVEa-7-1a4KhnwPhEUA4",
-      authDomain: "studio-6074404375-8dd73.firebaseapp.com",
-      databaseURL: "https://studio-6074404375-8dd73-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "studio-6074404375-8dd73",
-      storageBucket: "studio-6074404375-8dd73.firebasestorage.app",
-      messagingSenderId: "1092789043749",
-      appId: "1:1092789043749:web:fb621bab47a2d4380235cc"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const visitRef = ref(db, "visits/count");
-    const visitDisplay = document.getElementById("visitCount");
-
-    if (!sessionStorage.getItem("visited")) {
-      get(visitRef).then(snapshot => {
-        const current = snapshot.exists() ? snapshot.val() : 0;
-        const newCount = current + 1;
-        set(visitRef, newCount);
-        sessionStorage.setItem("visited", "true");
-      });
-    }
-  </script>
 
 </body>
 </html>
